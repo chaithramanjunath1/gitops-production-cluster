@@ -18,7 +18,7 @@ I built this to demonstrate enterprise-grade reliability and zero-touch deployme
 
 ## 🏗️ Architecture Blueprint
 
-``
+```
 gitops-production-cluster/
 ├── apps/
 │   └── frontend-web/
@@ -28,7 +28,7 @@ gitops-production-cluster/
 │   └── application.yaml         # The declarative sync instruction for Argo CD
 └── README.md
 
-
+```
 
 If you want to pull this down and see the self-healing in action, you can run this entirely locally on Docker Desktop or Minikube.
 
