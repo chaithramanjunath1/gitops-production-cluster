@@ -34,32 +34,35 @@ If you want to pull this down and see the self-healing in action, you can run th
 
 1. Spin up the Environment
 Ensure your local Kubernetes cluster is running, then install the Argo CD controller:
-
+```
 Bash
 kubectl create namespace argocd
 kubectl apply -n argocd -f [https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml](https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml)
+```
 
 2. Access the Command Center
 Forward the port to access the Argo CD visual dashboard:
-
+```
 Bash
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 URL: https://localhost:8080
-
+```
 Username: admin
 Password: Retrieve your secure local password by running:
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 
 3. Deploy the GitOps Controller
 Apply the root configuration file. Argo CD will immediately take over, read this GitHub repository, and build the cluster:
-
+```
 Bash
 kubectl apply -f argo-config/application.yaml
+```
 
 4. Test the Self-Healing (The Fun Part)
 Open your terminal and attempt to manually break the production environment by scaling the deployment down to zero:
-
+```
 Bash
 kubectl scale deployment frontend-webapp --replicas=0
+```
 
 Instantly check the Argo CD dashboard. You will see it detect the unauthorized state change (Configuration Drift) and automatically spin the pods back up to the required 3 replicas defined in this repository.
